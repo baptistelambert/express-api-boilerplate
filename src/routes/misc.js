@@ -1,4 +1,5 @@
 'use strict';
+
 const router = require('express').Router();
 
 /**
@@ -14,7 +15,7 @@ const router = require('express').Router();
  *
  * @apiSuccess {String} message Endpoint success message
  */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.send({
     message: 'Welcome on this API.',
     apidoc: req.protocol + '://' + req.get('host') + req.originalUrl + 'apidoc'

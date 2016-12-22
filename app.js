@@ -7,13 +7,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const _ = require('lodash');
+const logger = require('morgan');
 const boom = require('express-boom');
 
 const app = express();
 
 /*
+ * DATABASE
+ */
+require('./config/database');
+
+/*
  * MIDDLEWARES
  */
+app.use(logger('dev'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,12 +34,12 @@ app.use(boom());
  */
 const routes = require('./src/routes');
 
-_.each(routes, function(value) {
+_.each(routes, (value) => {
   app.use(value.routePrefix, value.file);
 });
 
 // 404 handling
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.boom.notFound();
 })
 
@@ -41,7 +48,7 @@ app.use(function(req, res, next) {
  */
 
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.send({
       error: err
@@ -49,7 +56,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
     message: err.message,

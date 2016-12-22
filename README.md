@@ -19,5 +19,4 @@ A simple starter for an Express API
 `node ./bin/www`
 
 # TODO
-- Add mongoDB support with mongoose
 - Add user jwt auth
