@@ -16,7 +16,4 @@ A simple starter for an Express API
 
 - Run the app
 
-`node ./bin/www`
-
-# TODO
-- Add user jwt auth
+`node ./bin/server.js`

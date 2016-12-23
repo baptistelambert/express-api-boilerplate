@@ -14,4 +14,8 @@ config.hashSaltRounds = 10;
 
 config.secret = 'ThisIsASecretKeyThatYouShouldChange';
 
+config.tokenHeader = 'X-AUTH-TOKEN';
+
+config.tokenExpiration = 60 * 60 * 3 // 3 hours
+
 module.exports = config;

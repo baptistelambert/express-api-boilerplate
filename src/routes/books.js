@@ -2,6 +2,7 @@
 
 const router = require('express').Router();
 const BooksController = require('../controllers/books');
+const AuthMiddleware = require('../middlewares/auth');
 
 /**
  * @api {GET} /books
@@ -22,13 +23,15 @@ router.get('/', BooksController.all);
  * @apiVersion 0.1.0
  *
  * @apiGroup Books
- * @apiPermission none
+ * @apiPermission User
+ *
+ * @apiHeader {String} X-AUTH-TOKEN User authentication token
  *
  * @apiParam {String} title Title of the book
  *
  * @apiName createBook
  * @apiDescription Create a book
  */
-router.post('/', BooksController.create);
+router.post('/', AuthMiddleware.verifyToken, BooksController.create);
 
 module.exports = router;

@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
+    "start": "NODE_ENV=production PORT=8080 node ./bin/server.js",
+    "dev": "NODE_ENV=development nodemon ./bin/server.js",
     "doc": "apidoc -i ./src/routes/ -o ./src/public/apidoc/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.1",
     "body-parser": "^1.15.2",
     "debug": "^2.5.1",
     "express": "^4.14.0",
     "express-boom": "^2.0.0",
+    "express-validator": "^3.1.1",
+    "jsonwebtoken": "^7.2.1",
     "lodash": "^4.17.2",
     "mongoose": "^4.7.4",
     "morgan": "^1.7.0"

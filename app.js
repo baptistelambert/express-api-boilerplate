@@ -9,8 +9,11 @@ const path = require('path');
 const _ = require('lodash');
 const logger = require('morgan');
 const boom = require('express-boom');
+const expressValidator = require('express-validator');
 
 const app = express();
+
+const config = require('./config/main');
 
 /*
  * DATABASE
@@ -22,12 +25,23 @@ require('./config/database');
  */
 app.use(logger('dev'));
 
+// Basic CORS with custom token header support
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, " + config.tokenHeader);
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 app.use(boom());
+
+app.use(expressValidator());
 
 /*
  * ROUTING
